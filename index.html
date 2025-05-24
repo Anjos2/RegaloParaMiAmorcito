@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Un detalle para ti 🌹</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('assets/rosas.jpg') center/cover no-repeat;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .mensaje {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 90%;
+    }
+    #peluche {
+      width: 120px;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    #peluche:hover {
+      transform: scale(1.3) rotate(-10deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="mensaje">
+    <h1>¡Hola mi amorcito :)! 🌹</h1>
+    <p>Este detalle virtual es solo un pequeño recordatorio de lo mucho que te amo.</p>
+    <img id="peluche" src="assets/peluche.png" alt="Peluche virtual" />
+    <p>Haz clic en el peluche para una sorpresa 😉</p>
+  </div>
+
+  <script>
+    document.getElementById('peluche').addEventListener('click', function() {
+      alert('¡Te quiero hasta la luna y de regreso! 🌙❤️');
+    });
+  </script>
+</body>
+</html>
