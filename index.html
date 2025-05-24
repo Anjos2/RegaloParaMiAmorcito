@@ -1,23 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para mi amorcito :) 🌹</title>
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <title>Para Melanni 🌹</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       background: url('assets/rosas.jpeg') center/cover no-repeat;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
+      font-family: 'Roboto', sans-serif;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
     .mensaje {
       background: rgba(0, 0, 0, 0.6);
@@ -36,6 +38,13 @@
       font-size: 1.2rem;
       margin: 1rem 0;
     }
+    p.click-instr {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: #ffeb3b;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      margin-top: 2rem;
+    }
     #peluche {
       width: 140px;
       margin-top: 1.5rem;
@@ -45,6 +54,57 @@
     #peluche:hover {
       transform: scale(1.4) rotate(-10deg);
     }
+    /* Overlay modal */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 100;
+    }
+    .overlay.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    .overlay .modal-content {
+      background: #222;
+      padding: 3rem;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+    }
+    .overlay h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #ff4081;
+    }
+    .overlay p {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+    .btn-cerrar {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background: #ff4081;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-cerrar:hover {
+      background: #e91e63;
+    }
   </style>
 </head>
 <body>
@@ -52,12 +112,28 @@
     <h1>Melanni, mi amor</h1>
     <p>Este detalle virtual es un abrazo en la distancia, un susurro de mi corazón que solo dice tu nombre ❤️.</p>
     <img id="peluche" src="assets/peluche.jpeg" alt="Peluche para Melanni" />
-    <p>Haz clic en el peluche para sentir mi cariño 😉</p>
+    <p class="click-instr">Haz clic en el peluche para una sorpresa especial</p>
+  </div>
+
+  <!-- Overlay Modal -->
+  <div id="overlay" class="overlay">
+    <div class="modal-content">
+      <h2>¡Sorpresa! 🎉</h2>
+      <p>Te quiero hasta las estrellas y más allá, Melanni! 🌟💖</p>
+      <button id="btnCerrar" class="btn-cerrar">Cerrar</button>
+    </div>
   </div>
 
   <script>
-    document.getElementById('peluche').addEventListener('click', function() {
-      alert('¡Te quiero hasta las estrellas y más allá, Melanni! 🌟💖');
+    const peluche = document.getElementById('peluche');
+    const overlay = document.getElementById('overlay');
+    const btnCerrar = document.getElementById('btnCerrar');
+
+    peluche.addEventListener('click', () => {
+      overlay.classList.add('show');
+    });
+    btnCerrar.addEventListener('click', () => {
+      overlay.classList.remove('show');
     });
   </script>
 </body>
