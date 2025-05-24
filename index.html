@@ -8,90 +8,82 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    /* Reset y Layout */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 0;
       background: url('assets/rosas.jpeg') center/cover no-repeat;
       font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      position: relative;
       color: #fff;
+      text-align: center;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      overflow: hidden;
     }
+    /* Mensaje central */
     .mensaje {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2.5rem;
+      position: relative;
+      background: rgba(0,0,0,0.6);
+      padding: 2rem;
       border-radius: 1rem;
-      max-width: 90%;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      z-index: 10;
+      max-width: 90%;
     }
     h1 {
       font-family: 'Dancing Script', cursive;
       font-size: 3rem;
-      margin: 0;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      margin-bottom: 1rem;
     }
     p {
       font-size: 1.2rem;
-      margin: 1rem 0;
+      margin: 0.5rem 0;
     }
     p.click-instr {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: #ffeb3b;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
+    /* Peluche animado */
     #peluche {
       width: 140px;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
       cursor: pointer;
       transition: transform 0.3s ease;
     }
-    #peluche:hover {
-      transform: scale(1.4) rotate(-10deg);
-    }
+    #peluche:hover { transform: scale(1.4) rotate(-10deg); }
+
     /* Overlay modal */
     .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      visibility: hidden;
-      opacity: 0;
+      position: fixed; top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.8);
+      display:flex; align-items:center; justify-content:center;
+      visibility:hidden; opacity:0;
       transition: opacity 0.5s ease;
-      z-index: 100;
+      z-index: 20;
     }
-    .overlay.show {
-      visibility: visible;
-      opacity: 1;
-    }
-    .overlay .modal-content {
+    .overlay.show { visibility:visible; opacity:1; }
+    .modal-content {
       background: #222;
-      padding: 3rem;
+      padding: 2rem;
       border-radius: 1rem;
-      text-align: center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      position: relative;
+      overflow: hidden;
     }
     .overlay h2 {
       font-family: 'Dancing Script', cursive;
       font-size: 2.5rem;
-      margin-bottom: 1rem;
       color: #ff4081;
+      margin-bottom: 1rem;
     }
-    .overlay p {
-      font-size: 1.2rem;
-      color: #fff;
-      margin-bottom: 2rem;
-    }
+    .overlay p { font-size:1.2rem; color:#fff; margin-bottom:1.5rem; }
     .btn-cerrar {
       padding: 0.5rem 1rem;
       font-size: 1rem;
@@ -102,8 +94,29 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-    .btn-cerrar:hover {
-      background: #e91e63;
+    .btn-cerrar:hover { background: #e91e63; }
+
+    /* Corazones flotantes */
+    .heart {
+      width: 20px; height: 20px;
+      position: absolute;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 4s infinite;
+      opacity: 0.8;
+    }
+    .heart:before, .heart:after {
+      content: '';
+      width: 20px; height: 20px;
+      background: red;
+      position: absolute;
+      border-radius: 50%;
+    }
+    .heart:before { top: -10px; left: 0; }
+    .heart:after  { left: 10px; top: 0; }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
+      100% { transform: translateY(-200px) rotate(45deg); opacity: 0; }
     }
   </style>
 </head>
@@ -129,12 +142,28 @@
     const overlay = document.getElementById('overlay');
     const btnCerrar = document.getElementById('btnCerrar');
 
+    // Mostrar modal y generar corazones
     peluche.addEventListener('click', () => {
       overlay.classList.add('show');
+      crearCorazones(20);
     });
+
     btnCerrar.addEventListener('click', () => {
       overlay.classList.remove('show');
     });
+
+    // Función para generar corazones flotantes
+    function crearCorazones(cantidad) {
+      for (let i = 0; i < cantidad; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = 3 + Math.random() * 2 + 's';
+        document.body.appendChild(heart);
+        // Eliminar después de la animación
+        heart.addEventListener('animationend', () => heart.remove());
+      }
+    }
   </script>
 </body>
 </html>
