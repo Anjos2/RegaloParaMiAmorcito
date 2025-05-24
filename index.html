@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     /* Reset y Layout */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
       background: url('assets/rosas.jpeg') center/cover no-repeat;
       font-family: 'Roboto', sans-serif;
@@ -30,97 +30,111 @@
       border-radius: 1rem;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       z-index: 10;
-      max-width: 90%;
+      max-width: 85%;
     }
     h1 {
       font-family: 'Dancing Script', cursive;
       font-size: 3rem;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-      margin-bottom: 1rem;
+      text-shadow:2px 2px 4px rgba(0,0,0,0.7);
+      margin-bottom:1rem;
     }
-    p {
-      font-size: 1.2rem;
-      margin: 0.5rem 0;
-    }
+    p { font-size:1.2rem; margin:0.5rem 0; }
     p.click-instr {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.4rem;
-      color: #ffeb3b;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-      margin-top: 1.5rem;
+      font-size:1.4rem;
+      color:#ffeb3b;
+      text-shadow:1px 1px 2px rgba(0,0,0,0.8);
+      margin-top:1.5rem;
     }
-    /* Peluche animado */
     #peluche {
-      width: 140px;
-      margin-top: 1rem;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+      width:140px;
+      margin-top:1rem;
+      cursor:pointer;
+      transition:transform 0.3s ease;
+      z-index:10;
     }
-    #peluche:hover { transform: scale(1.4) rotate(-10deg); }
+    #peluche:hover { transform:scale(1.4) rotate(-10deg); }
 
     /* Overlay modal */
     .overlay {
       position: fixed; top:0; left:0;
       width:100%; height:100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       display:flex; align-items:center; justify-content:center;
       visibility:hidden; opacity:0;
-      transition: opacity 0.5s ease;
-      z-index: 20;
+      transition:opacity 0.5s ease;
+      z-index:20;
     }
     .overlay.show { visibility:visible; opacity:1; }
     .modal-content {
       background: #222;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      padding:2rem;
+      border-radius:1rem;
+      box-shadow:0 4px 20px rgba(0,0,0,0.7);
       position: relative;
-      overflow: hidden;
+      overflow:hidden;
+      max-width:90%;
     }
     .overlay h2 {
       font-family: 'Dancing Script', cursive;
-      font-size: 2.5rem;
-      color: #ff4081;
-      margin-bottom: 1rem;
+      font-size:2.5rem;
+      color:#ff4081;
+      margin-bottom:1rem;
     }
     .overlay p { font-size:1.2rem; color:#fff; margin-bottom:1.5rem; }
     .btn-cerrar {
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background: #ff4081;
-      color: #fff;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: background 0.3s;
+      padding:0.5rem 1rem;
+      font-size:1rem;
+      background:#ff4081;
+      color:#fff;
+      border:none;
+      border-radius:0.5rem;
+      cursor:pointer;
+      transition:background 0.3s;
     }
-    .btn-cerrar:hover { background: #e91e63; }
+    .btn-cerrar:hover { background:#e91e63; }
 
     /* Corazones flotantes */
     .heart {
-      width: 20px; height: 20px;
-      position: absolute;
-      background: red;
-      transform: rotate(45deg);
-      animation: floatUp 4s infinite;
-      opacity: 0.8;
+      width:20px; height:20px;
+      position:absolute;
+      background:red;
+      transform:rotate(45deg);
+      animation:floatUp 4s infinite;
+      opacity:0.8;
     }
     .heart:before, .heart:after {
-      content: '';
-      width: 20px; height: 20px;
-      background: red;
-      position: absolute;
-      border-radius: 50%;
+      content:'';
+      width:20px; height:20px;
+      background:red;
+      position:absolute;
+      border-radius:50%;
     }
-    .heart:before { top: -10px; left: 0; }
-    .heart:after  { left: 10px; top: 0; }
+    .heart:before { top:-10px; left:0; }
+    .heart:after  { left:10px; top:0; }
     @keyframes floatUp {
-      0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
-      100% { transform: translateY(-200px) rotate(45deg); opacity: 0; }
+      0% { transform:translateY(0) rotate(45deg); opacity:0.8; }
+      100% { transform:translateY(-200px) rotate(45deg); opacity:0; }
+    }
+
+    /* Pétalos flotantes */
+    .petal {
+      width:16px; height:16px;
+      background:url('assets/petal.png') no-repeat center/cover;
+      position:absolute;
+      animation:petalFall 7s infinite;
+      opacity:0.9;
+      z-index:5;
+    }
+    @keyframes petalFall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity:0.9; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity:0; }
     }
   </style>
 </head>
 <body>
+  <audio id="bgMusic" src="assets/musica.mp3" autoplay loop muted></audio>
+
   <div class="mensaje">
     <h1>Melanni, mi amor</h1>
     <p>Este detalle virtual es un abrazo en la distancia, un susurro de mi corazón que solo dice tu nombre ❤️.</p>
@@ -137,22 +151,30 @@
     </div>
   </div>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
     const peluche = document.getElementById('peluche');
     const overlay = document.getElementById('overlay');
     const btnCerrar = document.getElementById('btnCerrar');
+    const music = document.getElementById('bgMusic');
 
-    // Mostrar modal y generar corazones
+    // Activar música luego de interacción
+    document.body.addEventListener('click', () => {
+      music.muted = false;
+    }, { once: true });
+
     peluche.addEventListener('click', () => {
       overlay.classList.add('show');
-      crearCorazones(20);
+      crearCorazones(25);
+      lanzarConfeti();
+      crearPetalos(30);
     });
 
     btnCerrar.addEventListener('click', () => {
       overlay.classList.remove('show');
     });
 
-    // Función para generar corazones flotantes
     function crearCorazones(cantidad) {
       for (let i = 0; i < cantidad; i++) {
         const heart = document.createElement('div');
@@ -160,8 +182,28 @@
         heart.style.left = Math.random() * 100 + '%';
         heart.style.animationDuration = 3 + Math.random() * 2 + 's';
         document.body.appendChild(heart);
-        // Eliminar después de la animación
         heart.addEventListener('animationend', () => heart.remove());
+      }
+    }
+
+    function lanzarConfeti() {
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+      (function frame() {
+        confetti({ particleCount: 5, spread: 60, origin: { y: 0.6 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    function crearPetalos(cantidad) {
+      for (let i = 0; i < cantidad; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDelay = Math.random() * 5 + 's';
+        petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+        document.body.appendChild(petal);
+        petal.addEventListener('animationend', () => petal.remove());
       }
     }
   </script>
