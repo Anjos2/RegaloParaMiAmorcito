@@ -7,8 +7,8 @@
   <title>Para Melanni 🌹</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/peluche.jpeg" type="image/jpeg">
   <style>
-    /* Reset y layout básico */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: url('assets/rosas.jpeg') center/cover no-repeat;
@@ -22,7 +22,6 @@
       align-items: center;
       justify-content: center;
     }
-    /* Mensaje central */
     .mensaje {
       position: relative;
       background: rgba(0,0,0,0.6);
@@ -46,7 +45,6 @@
       text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
       margin-top: 1.5rem;
     }
-    /* Peluche animado */
     #peluche {
       width: 140px;
       margin-top: 1rem;
@@ -55,8 +53,6 @@
       z-index: 10;
     }
     #peluche:hover { transform: scale(1.4) rotate(-10deg); }
-
-    /* Overlay modal */
     .overlay {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
@@ -94,8 +90,6 @@
       transition: background 0.3s;
     }
     .btn-cerrar:hover { background: #e91e63; }
-
-    /* Corazones flotantes */
     .heart {
       width: 20px; height: 20px;
       position: absolute;
@@ -117,8 +111,6 @@
       0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
       100% { transform: translateY(-200px) rotate(45deg); opacity: 0; }
     }
-
-    /* Pétalos flotantes (PNG) */
     .petal {
       width: 16px; height: 16px;
       background: url('assets/petal.png') no-repeat center/cover;
@@ -134,17 +126,13 @@
   </style>
 </head>
 <body>
-  <!-- Música de fondo (activada tras primer clic) -->
   <audio id="bgMusic" src="assets/musica.mp3" autoplay loop muted></audio>
-
   <div class="mensaje">
     <h1>Melanni, mi amor</h1>
     <p>Este detalle virtual es un abrazo en la distancia, un susurro de mi corazón que solo dice tu nombre ❤️.</p>
     <img id="peluche" src="assets/peluche.jpeg" alt="Peluche para Melanni" />
     <p class="click-instr">Haz clic en el peluche para una sorpresa especial</p>
   </div>
-
-  <!-- Overlay Modal -->
   <div id="overlay" class="overlay">
     <div class="modal-content">
       <h2>¡Sorpresa! 🎉</h2>
@@ -152,63 +140,49 @@
       <button id="btnCerrar" class="btn-cerrar">Cerrar</button>
     </div>
   </div>
-
-  <!-- Scripts: confetti, corazones y pétalos -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
     const peluche = document.getElementById('peluche');
     const overlay = document.getElementById('overlay');
     const btnCerrar = document.getElementById('btnCerrar');
     const music = document.getElementById('bgMusic');
-
-    // Activa la música con el primer clic
     document.body.addEventListener('click', () => {
       music.muted = false;
     }, { once: true });
-
     peluche.addEventListener('click', () => {
       overlay.classList.add('show');
       crearCorazones(25);
       lanzarConfeti();
       crearPetalos(30);
     });
-
     btnCerrar.addEventListener('click', () => {
       overlay.classList.remove('show');
     });
-
     function crearCorazones(cantidad) {
       for (let i = 0; i < cantidad; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
         heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDuration = 3 + Math.random() * 2 + 's';
+        heart.style.top = '100%';
         document.body.appendChild(heart);
-        heart.addEventListener('animationend', () => heart.remove());
+        setTimeout(() => heart.remove(), 4000);
       }
     }
-
     function lanzarConfeti() {
-      const duration = 3 * 1000;
-      const end = Date.now() + duration;
-      (function frame() {
-        confetti({ particleCount: 5, spread: 60, origin: { y: 0.6 } });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
     }
-
     function crearPetalos(cantidad) {
       for (let i = 0; i < cantidad; i++) {
         const petal = document.createElement('div');
         petal.classList.add('petal');
         petal.style.left = Math.random() * 100 + '%';
-        petal.style.animationDelay = Math.random() * 5 + 's';
-        petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+        petal.style.top = '-20px';
         document.body.appendChild(petal);
-        petal.addEventListener('animationend', () => petal.remove());
+        setTimeout(() => petal.remove(), 7000);
       }
     }
   </script>
 </body>
 </html>
+
 
